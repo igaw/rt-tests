@@ -12,10 +12,8 @@ Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 Forwarded: id:1313844843-6405-1-git-send-email-u.kleine-koenig@pengutronix.de
 ---
  src/backfire/backfire.c |    3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/src/backfire/backfire.c b/src/backfire/backfire.c
-index aaf9c4a..0e9a0df 100644
 --- a/src/backfire/backfire.c
 +++ b/src/backfire/backfire.c
 @@ -24,7 +24,6 @@
@@ -35,6 +33,3 @@ index aaf9c4a..0e9a0df 100644
  static int backfire_open_cnt; /* #times opened */
  static int backfire_open_mode; /* special open modes */
  static struct timeval sendtime; /* when the most recent signal was sent */
--- 
-1.7.5.4
-

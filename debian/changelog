@@ -1,8 +1,8 @@
-rt-tests (0.83-1) unstable; urgency=low
+rt-tests (0.84-1) UNRELEASED; urgency=low
 
   * new upstream release
 
- -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Fri, 02 Dec 2011 10:40:15 +0100
+ -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Sun, 05 Aug 2012 21:29:39 +0200
 
 rt-tests (0.74-1) unstable; urgency=low
 
