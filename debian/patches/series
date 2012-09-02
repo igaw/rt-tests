@@ -5,3 +5,4 @@ debian_has_recent_glibc
 fix_comment_about_realtime_group.patch
 backfire-fix-build-failure-for-modern-kernels.patch
 support-compilation-with-hardening-flags.patch
+fix-CFLAGS.patch
