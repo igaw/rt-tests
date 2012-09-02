@@ -2,6 +2,7 @@ rt-tests (0.84-1) UNRELEASED; urgency=low
 
   * new upstream release
   * convert copyright file to machine-readable copyright format version 1.0
+  * Standards-Version: 3.9.3 (no changes needed)
 
  -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Sun, 05 Aug 2012 21:29:39 +0200
 
