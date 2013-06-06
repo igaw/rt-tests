@@ -1,6 +1,9 @@
 rt-tests (0.84-2) UNRELEASED; urgency=low
 
   * fix backfire kernel module for Linux v3.4-rc1 and later
+  * backport  
+    	dd6ae11 (hackbench: init child's struct before using it)
+    to make hackbench work on armhf. (Closes: #711363)
 
  -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Thu, 08 Nov 2012 22:35:01 +0100
 
