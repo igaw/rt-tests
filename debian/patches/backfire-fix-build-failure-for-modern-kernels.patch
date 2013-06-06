@@ -4,15 +4,16 @@ Subject: backfire: fix build failure for modern kernels
 SPIN_LOCK_UNLOCKED doesn't work any more since v2.6.39-rc1~511^2~11
 (locking: Remove deprecated lock initializers). DEFINE_SPINLOCK is
 available since v2.6.14-rc1~223, so it should be ok to depend on that.
-<linux/smp_lock.h> is gone since v2.6.39-rc1~467^2.
+<linux/smp_lock.h> is gone since v2.6.39-rc1~467^2. Also <asm/system.h>
+is gone for most architectures since v3.4-rc1~54^2.
 
-The module builds fine for Debian's 2.6.32 kernel with this change.
+The module builds fine for Debian's 2.6.32 and 3.6 kernels with this
+change.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Forwarded: id:1313844843-6405-1-git-send-email-u.kleine-koenig@pengutronix.de
 ---
- src/backfire/backfire.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ src/backfire/backfire.c |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 --- a/src/backfire/backfire.c
 +++ b/src/backfire/backfire.c
@@ -24,7 +25,11 @@ Forwarded: id:1313844843-6405-1-git-send-email-u.kleine-koenig@pengutronix.de
  #include <linux/types.h>
  #include <linux/errno.h>
  #include <linux/miscdevice.h>
-@@ -36,7 +35,7 @@
+@@ -32,11 +31,10 @@
+ #include <linux/spinlock.h>
+ 
+ #include <asm/uaccess.h>
+-#include <asm/system.h>
  
  #define BACKFIRE_MINOR MISC_DYNAMIC_MINOR
  
