@@ -1,4 +1,4 @@
-rt-tests (0.84-2) UNRELEASED; urgency=low
+rt-tests (0.84-2) unstable; urgency=medium
 
   * fix backfire kernel module for Linux v3.4-rc1 and later
   * backport  
