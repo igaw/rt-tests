@@ -5,7 +5,7 @@ rt-tests (0.84-2) UNRELEASED; urgency=low
     	dd6ae11 (hackbench: init child's struct before using it)
     to make hackbench work on armhf. (Closes: #711363)
 
- -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Thu, 08 Nov 2012 22:35:01 +0100
+ -- Uwe Kleine-König <uwe@kleine-koenig.org>  Thu, 06 Jun 2013 21:30:30 +0200
 
 rt-tests (0.84-1) experimental; urgency=low
 

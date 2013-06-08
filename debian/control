@@ -1,7 +1,7 @@
 Source: rt-tests
 Section: misc
 Priority: extra
-Maintainer: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Maintainer: Uwe Kleine-König <uwe@kleine-koenig.org>
 Standards-Version: 3.9.3
 Build-Depends: debhelper (>= 9), libnuma-dev (>= 2.0.3) [amd64 i386 ia64 mips mipsel powerpc], dkms (>= 2.1.0.0)
 Vcs-Browser: http://git.pengutronix.de/?p=ukl/rt-tests.git;
