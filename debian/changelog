@@ -1,3 +1,10 @@
+rt-tests (0.84-3) UNRELEASED; urgency=low
+
+  * Build-Depends += libnuma-dev for powerpcspe, ppc64 and x32
+    (Closes: #711952)
+
+ -- Uwe Kleine-König <uwe@kleine-koenig.org>  Wed, 26 Jun 2013 20:16:08 +0200
+
 rt-tests (0.84-2) unstable; urgency=medium
 
   * fix backfire kernel module for Linux v3.4-rc1 and later
