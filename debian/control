@@ -21,6 +21,7 @@ Description: Test programs for rt kernels
  scheduler.
 
 Package: backfire-dkms
+Section: kernel
 Architecture: all
 Depends: ${misc:Depends},
 Replaces: rt-tests (<= 0.66-2)
