@@ -3,6 +3,7 @@ rt-tests (0.85-1) UNRELEASED; urgency=low
   * new upstream release
   * Build-Depends += libnuma-dev for powerpcspe, ppc64 and x32
     (Closes: #711952)
+  * Standards-Version: 3.9.4 (no changes needed)
 
  -- Uwe Kleine-König <uwe@kleine-koenig.org>  Tue, 16 Jul 2013 20:32:07 +0200
 
