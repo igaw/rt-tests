@@ -11,7 +11,7 @@ Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
 --- a/Makefile
 +++ b/Makefile
-@@ -11,6 +11,7 @@
+@@ -11,6 +11,7 @@ EXTRA_LIBS ?= -ldl	# for get_cpu
  DESTDIR	?=
  prefix  ?= /usr/local
  bindir  ?= $(prefix)/bin
@@ -19,8 +19,8 @@ Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
  mandir	?= $(prefix)/share/man
  srcdir	?= $(prefix)/src
  
-@@ -23,8 +24,6 @@
- CFLAGS ?= -D_GNU_SOURCE -Wall -Wno-nonnull -Isrc/include
+@@ -24,8 +25,6 @@ CFLAGS ?= -Wall -Wno-nonnull
+ CPPFLAGS += -D_GNU_SOURCE -Isrc/include
  LDFLAGS ?=
  
 -PYLIB  := $(shell python -c 'import distutils.sysconfig;  print distutils.sysconfig.get_python_lib()')
@@ -28,7 +28,7 @@ Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
  ifndef DEBUG
  	CFLAGS	+= -O2
  else
-@@ -123,11 +122,7 @@
+@@ -124,11 +123,7 @@ install: all
  	mkdir -p "$(DESTDIR)$(bindir)" "$(DESTDIR)$(mandir)/man4"
  	mkdir -p "$(DESTDIR)$(srcdir)" "$(DESTDIR)$(mandir)/man8"
  	cp $(TARGETS) "$(DESTDIR)$(bindir)"
