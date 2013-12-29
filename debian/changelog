@@ -1,10 +1,10 @@
-rt-tests (0.87-1) UNRELEASED; urgency=low
+rt-tests (0.87-1) unstable; urgency=low
 
   * upstream changed path to released archives
   * new upstream release
   * Standards-Version: 3.9.5 (no changes needed)
 
- -- Uwe Kleine-König <uwe@kleine-koenig.org>  Fri, 20 Dec 2013 20:47:57 +0100
+ -- Uwe Kleine-König <uwe@kleine-koenig.org>  Sun, 29 Dec 2013 13:22:45 +0100
 
 rt-tests (0.85-1) unstable; urgency=low
 
