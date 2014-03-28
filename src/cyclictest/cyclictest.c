@@ -400,6 +400,7 @@ static int trace_file_exists(char *name)
 #define TRACEBUFSIZ 1024
 static __thread char tracebuf[TRACEBUFSIZ];
 
+static void tracemark(char *fmt, ...) __attribute__((format(printf, 1, 2)));
 static void tracemark(char *fmt, ...)
 {
 	va_list ap;
@@ -895,7 +896,8 @@ void *timerthread(void *param)
 
 		if (!stopped && tracelimit && (diff > tracelimit)) {
 			stopped++;
-			tracemark("hit latency threshold (%d > %d)", diff, tracelimit);
+			tracemark("hit latency threshold (%llu > %d)",
+				  (unsigned long long) diff, tracelimit);
 			tracing(0);
 			shutdown++;
 			pthread_mutex_lock(&break_thread_id_lock);
@@ -1032,8 +1034,10 @@ static void display_help(int error)
 	       "-T TRACE --tracer=TRACER   set tracing function\n"
 	       "    configured tracers: %s\n"
 	       "-u       --unbuffered      force unbuffered output for live processing\n"
+#ifdef NUMA
 	       "-U       --numa            Standard NUMA testing (similar to SMP option)\n"
 	       "                           thread data structures allocated from local node\n"
+#endif
 	       "-v       --verbose         output values on stdout for statistics\n"
 	       "                           format: n:c:v n=tasknum c=count v=value in us\n"
 	       "-w       --wakeup          task wakeup tracing (used with -b)\n"
@@ -1981,7 +1985,7 @@ int main(int argc, char **argv)
 		case AFFINITY_UNSPECIFIED: par->cpu = -1; break;
 		case AFFINITY_SPECIFIED:
 			par->cpu = cpu_for_thread(i, max_cpus);
-			if (verbose)
+			//if (verbose)
 				printf("Thread %d using cpu %d.\n", i,
 					par->cpu);
 			break;

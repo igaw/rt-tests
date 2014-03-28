@@ -1,3 +1,9 @@
+rt-tests (0.88-1) UNRELEASED; urgency=low
+
+  * new upstream release
+
+ -- Uwe Kleine-König <uwe@kleine-koenig.org>  Fri, 28 Mar 2014 21:28:02 +0100
+
 rt-tests (0.87-1) unstable; urgency=low
 
   * upstream changed path to released archives
