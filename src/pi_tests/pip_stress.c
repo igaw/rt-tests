@@ -67,18 +67,21 @@ struct State *statep;
 const int policy = SCHED_FIFO;
 static int prio_min;	/* Initialized for the minimum priority of policy */
 
+static char outfile[MAX_PATH];
+
 static void usage(int error)
 {
 	printf("pip_stress V %1.2f\n", VERSION);
 	printf("Usage:\n"
 	       "pip_stress <options>\n"\
-	       "-h	--help                  Show this help menu.\n"
+	       "-h	 --help            Show this help menu.\n"
+	       "         --output=FILENAME write final results into FILENAME, JSON formatted\n"
 	       );
 	exit(error);
 }
 
 enum option_values {
-	OPT_HELP=1
+	OPT_HELP=1, OPT_OUTPUT,
 };
 
 int main(int argc, char *argv[])
@@ -89,9 +92,11 @@ int main(int argc, char *argv[])
 	int res;
 	int *minimum_priority = (int*)&prio_min;
 
+	rt_init(argc, argv);
 	for (;;) {
 		struct option long_options[] = {
 			{"help",	no_argument,		NULL, OPT_HELP},
+			{"output",	required_argument,	NULL, OPT_OUTPUT },
 			{NULL,		0,			NULL, 0}
 		};
 
@@ -102,6 +107,9 @@ int main(int argc, char *argv[])
 		case OPT_HELP:
 		case 'h':
 			usage(0);
+			break;
+		case OPT_OUTPUT:
+			strncpy(outfile, optarg, strnlen(optarg, MAX_PATH-1));
 			break;
 		default:
 			usage(1);
@@ -145,6 +153,7 @@ int main(int argc, char *argv[])
 		err_exit(err, NULL);
 	}
 
+	rt_test_start();
 	pid1 = fork();
 	if (pid1 == -1) {
 		perror("fork");
@@ -164,6 +173,9 @@ int main(int argc, char *argv[])
 			exit(0);
 		}
 	}
+
+	if (strlen(outfile) != 0)
+		rt_write_json(outfile, !statep->inversion, NULL, NULL);
 
 	if (!statep->inversion) {
 		printf("No inversion incurred\n");
