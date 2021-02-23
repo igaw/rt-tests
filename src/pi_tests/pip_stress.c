@@ -160,11 +160,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (statep->inversion)
-		printf("Successfully used priority inheritance to handle an inversion\n");
-	else
+	if (!statep->inversion) {
 		printf("No inversion incurred\n");
-
+		exit(1);
+	}
+	printf("Successfully used priority inheritance to handle an inversion\n");
 	exit(0);
 }
 
