@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	} else if (pid1 != 0) {		/* parent code */
 		low(pid1);
+		exit(0);
 	} else {			/* child code */
 		pid2 = fork();		/* parent code */
 		if (pid2 == -1) {
@@ -155,8 +156,14 @@ int main(int argc, char *argv[])
 			high(pid2);
 		} else {			/* child code */
 			medium();
+			exit(0);
 		}
 	}
+
+	if (statep->inversion)
+		printf("Successfully used priority inheritance to handle an inversion\n");
+	else
+		printf("No inversion incurred\n");
 
 	exit(0);
 }
@@ -222,14 +229,6 @@ void high(pid_t pid)
 	Pthread_mutex_unlock(resource);
 	kill(pid, SIGKILL);	/* kill the medium thread */
 	waitpid(pid, &status, 0);
-
-	Pthread_mutex_lock(statep->mutex);
-
-	if (statep->inversion)
-		printf("Successfully used priority inheritance to handle an inversion\n");
-	else
-		printf("No inversion incurred\n");
-	Pthread_mutex_unlock(statep->mutex);
 }
 
 /* mmap a page of anonymous shared memory */
