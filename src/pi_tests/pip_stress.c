@@ -77,6 +77,10 @@ static void usage(int error)
 	exit(error);
 }
 
+enum option_values {
+	OPT_HELP=1
+};
+
 int main(int argc, char *argv[])
 {
 	void *mptr;	/* memory pointer */
@@ -87,14 +91,15 @@ int main(int argc, char *argv[])
 
 	for (;;) {
 		struct option long_options[] = {
-			{ "help",	no_argument,		NULL,	'h' },
-			{ NULL,		0,			NULL,	0 },
+			{"help",	no_argument,		NULL, OPT_HELP},
+			{NULL,		0,			NULL, 0}
 		};
 
-		int c = getopt_long(argc, argv, "s:h", long_options, NULL);
+		int c = getopt_long(argc, argv, "h", long_options, NULL);
 		if (c == -1)
 			break;
 		switch (c) {
+		case OPT_HELP:
 		case 'h':
 			usage(0);
 			break;
