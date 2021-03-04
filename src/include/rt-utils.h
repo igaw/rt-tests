@@ -80,8 +80,9 @@ static inline int64_t calctime(struct timespec t)
 	return time;
 }
 
-void rt_write_json(const char *filename, int argc, char *argv[],
-		   void (*cb)(FILE *, void *),
-		   void *data);
+void rt_init(int argc, char *argv[]);
+
+void rt_write_json(const char *filename,
+		   void (*cb)(FILE *, void *), void *data);
 
 #endif	/* __RT_UTILS.H */

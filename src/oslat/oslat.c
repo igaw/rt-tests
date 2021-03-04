@@ -796,6 +796,8 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	rt_init(argc, argv);
+
 	g.app_name = argv[0];
 	g.rtprio = 0;
 	g.bucket_size = BUCKET_SIZE;
@@ -860,8 +862,7 @@ int main(int argc, char *argv[])
 	write_summary(threads);
 
 	if (strlen(g.outfile) != 0)
-		rt_write_json(g.outfile, argc, argv,
-			write_summary_json, threads);
+		rt_write_json(g.outfile, write_summary_json, threads);
 
 	if (g.cpu_list) {
 		free(g.cpu_list);
