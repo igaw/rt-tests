@@ -29,12 +29,14 @@
 #include "rt-error.h"
 
 #define  TRACEBUFSIZ  1024
+#define  MAX_COMMAND_LINE 4096
 
 static char debugfileprefix[MAX_PATH];
 static char *fileprefix;
 static int trace_fd = -1;
 static int tracemark_fd = -1;
 static __thread char tracebuf[TRACEBUFSIZ];
+static char cmdline[MAX_COMMAND_LINE];
 
 /*
  * Finds the tracing directory in a mounted debugfs
@@ -486,40 +488,40 @@ void disable_trace_mark(void)
 	close_tracemark_fd();
 }
 
-static char *get_cmdline(int argc, char *argv[])
+void rt_init(int argc, char *argv[])
 {
-	char *cmdline;
+	int offset = 0;
 	int len, i;
 
-	len = 0;
-	for (i = 0; i < argc; i++)
-		len += strlen(argv[i]) + 1;
+	cmdline[0] = '\0';
 
-	cmdline = malloc(len);
-	if (!cmdline)
-		err_exit(ENOMEM, "Could not copy cmdline");
-
-	memset(cmdline, 0, len);
+	/*
+	 * getopt_long() permutes the contents of argv as it scans, so
+	 * that eventually all the nonoptions are at the end. Make a
+	 * copy before calling getopt_long().
+	 */
 	for (i = 0; i < argc;) {
-		cmdline = strcat(cmdline, argv[i]);
+		len = strlen(argv[i]);
+		if (offset + len + 1 >= MAX_COMMAND_LINE)
+			break;
+
+		strcat(cmdline, argv[i]);
 		i++;
 		if (i < argc)
-			cmdline = strcat(cmdline, " ");
-	}
+			strcat(cmdline, " ");
 
-	return cmdline;
+		offset += len + 1;
+	}
 }
 
-void rt_write_json(const char *filename, int argc, char *argv[],
-		  void (*cb)(FILE *, void *),
-		  void *data)
+void rt_write_json(const char *filename,
+		   void (*cb)(FILE *, void *), void *data)
 {
 	unsigned char buf[1];
 	struct utsname uts;
 	struct timeval tv;
 	char tsbuf[64];
 	struct tm *tm;
-	char *cmdline;
 	FILE *f, *s;
 	time_t t;
 	size_t n;
@@ -532,11 +534,6 @@ void rt_write_json(const char *filename, int argc, char *argv[],
 		if (!f)
 			err_exit(errno, "Failed to open '%s'\n", filename);
 	}
-
-	cmdline = get_cmdline(argc, argv);
-	if (!cmdline)
-		err_exit(ENOMEM, "get_cmdline()");
-
 
 	gettimeofday(&tv, NULL);
 	t = tv.tv_sec;
@@ -572,8 +569,6 @@ void rt_write_json(const char *filename, int argc, char *argv[],
 	(cb)(f, data);
 
 	fprintf(f, "}\n");
-
-	free(cmdline);
 
 	if (!filename || strcmp("-", filename))
 		fclose(f);

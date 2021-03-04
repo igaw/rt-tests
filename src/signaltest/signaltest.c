@@ -414,6 +414,7 @@ int main(int argc, char **argv)
 	int status, cpu;
 	int max_cpus = sysconf(_SC_NPROCESSORS_ONLN);
 
+	rt_init(argc, argv);
 	process_options(argc, argv, max_cpus);
 
 	if (check_privs())
@@ -557,7 +558,7 @@ int main(int argc, char **argv)
 			free(stat[i].values);
 	}
 	if (strlen(outfile) != 0)
-		rt_write_json(outfile, argc, argv, write_stats, par);
+		rt_write_json(outfile, write_stats, par);
 
 	free(stat);
  outpar:
